@@ -1,7 +1,10 @@
 from django.shortcuts import render
+
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import viewsets
 
 from . import serializers
 
@@ -13,8 +16,11 @@ http method (get, post, put, patch, delete) unsuitable
 when need full control over the logic
 processing file with sychronous response or calling other API
 
-ViewSet :
-
+Viewset :
+uses model operation for function/ not http method
+list, create, retrieve, update, partial update, destroy
+good for standard db
+simple CRUD, quick api but cannot customize on logic
 '''
 
 class HelloApiView(APIView):
@@ -53,3 +59,15 @@ class HelloApiView(APIView):
 
     def delete(self, request, pk=None):
         return Response({'method':'delete'})
+
+
+class HelloViewSet(viewsets.ViewSet):
+
+    def list(self, request):
+        # return hello message
+        aaaviewset = [
+        'uses actions [list, create, retrieve, update, parital_update]',
+        'automatically maps to urls using router',
+        'provide more functionality with less code',
+        ]
+        return Response({'message':'hello!!!', 'aaaviewset':aaaviewset})
