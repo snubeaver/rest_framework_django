@@ -1,15 +1,17 @@
 from django.shortcuts import render
 
-
+# from rest_framework
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
 
+# from my filetree
 from . import serializers
 from . import models
+from . import permissions
 
-# Create your views here.
 '''
 APIView :
 http method (get, post, put, patch, delete) unsuitable
@@ -111,3 +113,5 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     """
     serializer_class = serializers.UserProfileSerializer
     queryset = models.UserProfile.objects.all()
+    authentication_classes = (TokenAuthentication, )
+    permission_classes = (permissions.UpdateOwnProfile, )
