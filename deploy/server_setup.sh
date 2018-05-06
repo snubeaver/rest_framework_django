@@ -18,19 +18,19 @@ pip install --upgrade pip
 pip install virtualenv
 
 mkdir -p $PROJECT_BASE_PATH
-git clone $PROJECT_GIT_URL $PROJECT_BASE_PATH/profiles-rest-api
+git clone $PROJECT_GIT_URL $PROJECT_BASE_PATH/rest_framework_django
 
 mkdir -p $VIRTUALENV_BASE_PATH
 virtualenv --python=python3 $VIRTUALENV_BASE_PATH/profiles_api
 
 source $VIRTUALENV_BASE_PATH/profiles_api/bin/activate
-pip install -r $PROJECT_BASE_PATH/profiles-rest-api/requirements.txt
+pip install -r $PROJECT_BASE_PATH/rest_framework_django/requirements.txt
 
 # Run migrations
-cd $PROJECT_BASE_PATH/profiles-rest-api/src
+cd $PROJECT_BASE_PATH/rest_framework_django/src
 
 # Setup Supervisor to run our uwsgi process.
-cp $PROJECT_BASE_PATH/profiles-rest-api/deploy/supervisor_profiles_api.conf /etc/supervisor/conf.d/profiles_api.conf
+cp $PROJECT_BASE_PATH/rest_framework_django/deploy/supervisor_profiles_api.conf /etc/supervisor/conf.d/profiles_api.conf
 supervisorctl reread
 supervisorctl update
 supervisorctl restart profiles_api
